@@ -1,0 +1,8 @@
+5 8
+0 1
+4 6
+x xxxxxx
+x xx   x
+x    x x
+xxx xx x
+xxxxxx x
