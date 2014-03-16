@@ -1,7 +1,7 @@
 #include "depth.h"
 
 // Edit the code here to change maze file.
-#define MAZE_FILE "fun1.txt"
+#define MAZE_FILE "maze.txt"
 
 Maze Depth::exitTheMaze(Maze& M, char last_node) {
 	n++;
@@ -29,19 +29,19 @@ Maze Depth::exitTheMaze(Maze& M, char last_node) {
 	//after adding position to vector, lets check which direction we can go, and go there. 
 	//after going there, we add the direction to our seq of directions and we call the method over again.
 	if (!M.isFinish()) {
-		if (finished != 'f' && last_node != 'n' && M.north()){
+		if (!M.isFinish() && last_node != 'n' && M.north()){
 			seq.push_back('n');
 			exitTheMaze(M, 's');
 		}
-		if (finished != 'f' && last_node != 'e' && M.east()){
+		if (!M.isFinish() && last_node != 'e' && M.east()){
 			seq.push_back('e');
 			exitTheMaze(M, 'w');
 		}
-		if (finished != 'f' && last_node != 's' && M.south()){
+		if (!M.isFinish() && last_node != 's' && M.south()){
 			seq.push_back('s');
 			exitTheMaze(M, 'n');
 		}
-		if (finished != 'f' && last_node != 'w' && M.west()) {
+		if (!M.isFinish() && last_node != 'w' && M.west()) {
 			seq.push_back('w');
 			exitTheMaze(M, 'e');
 		}
@@ -52,12 +52,6 @@ Maze Depth::exitTheMaze(Maze& M, char last_node) {
 			backUp(M, last_node);
 			return M;
 		}
-
-		//if perhaps we are finished, set finished equal to f so we no longer move in any direction.
-		else{
-			finished = 'f';
-		}
-
 	}
 	return M;
 }
@@ -96,35 +90,4 @@ void Depth::backUp(Maze& M, char& last_node){
 		last_node = 'e';
 		break;
 	}
-}
-
-
-
-
-
-
-
-int main() {
-	//making the maze object
-	Maze M;
-	M.ReadMaze(MAZE_FILE);
-	
-	//starting the maze, printing it.
-	cout << "This is the maze and your starting point." << endl << endl;
-	M.getStart();
-	cout << M;
-	
-	//making the Depth object
-	Depth d;
-	M.getCurrentLocation(d.start_col, d.start_row);
-	d.exitTheMaze(M,0);
-
-	//printing info
-	cout << M <<endl;
-	string str(d.seq.begin(), d.seq.end());
-	cout << "Your solution is:\n" << str << endl << endl;
-	cout << "WE FINISHED IN ";
-	cout << d.n;//counter
-	cout << " MOVES!" << endl;
-	return 0;
 }

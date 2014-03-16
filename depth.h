@@ -10,9 +10,6 @@ public:
 	vector<char> seq;
 	vector<int> col;
 	vector<int> row;
-	
-	//When finished, this variable will be changed...
-	char finished = '0';
 
 	//counter of moves, +1 for each move, -1 for each back up. 
 	int n = 0;
